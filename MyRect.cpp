@@ -1,5 +1,6 @@
 #include "MyRect.h"
 #include "Bullet.h"
+#include "Enemy.h"
 #include <QKeyEvent>
 #include <QGraphicsScene>
 #include <QDebug>
@@ -25,4 +26,11 @@ void MyRect::keyPressEvent(QKeyEvent *event)
         //adds the bullet to the scene
         scene()->addItem(bullet);
     }
+}
+
+void MyRect::spawn() {
+    // creane enemey
+
+    Enemy * enemy = new Enemy();
+    scene()->addItem(enemy);
 }

@@ -2,6 +2,7 @@
 #include <QGraphicsScene>
 #include "MyRect.h"
 #include <QGraphicsView>
+#include <QTimer>
 
 /*
  -QGraphicsScene makes the map or the world
@@ -43,6 +44,14 @@ int main(int argc, char *argv[])
     scene->setSceneRect(0,0,800,600);
     //sets the player to the middle and bottom of the scene
     player->setPos(view->width()/2 - player->rect().width()/2, view->height() - player->rect().height());
+
+    // spawn enemies
+    QTimer * timer = new QTimer();
+    QObject::connect(timer, SIGNAL(timeout()), player, SLOT(spawn()));
+    timer->start(2000);
+
+
+
 
     return a.exec();
 }
