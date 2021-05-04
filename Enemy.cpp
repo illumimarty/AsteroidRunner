@@ -1,33 +1,39 @@
 #include "Enemy.h"
 #include <QTimer>
 #include <QGraphicsScene>
-#include <QDebug>
-#include <stdlib.h>  // rand()
+#include <QList>
+#include <stdlib.h> // rand() -> really large int
+#include "Game.h"
 
-Enemy::Enemy(): QObject(), QGraphicsRectItem(){
+extern Game * game;
 
-    // set random position
-    int randNum = rand() % 700;
+Enemy::Enemy(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent){
+    //set random x position
+    int random_number = rand() % 700;
+    setPos(random_number,0);
 
-    setPos(randNum, 0);
+    // draw the enemy
+    setPixmap(QPixmap(":/images/asteroid.png"));
 
 
-    // drew the rect
-    setRect(0,0,10,50);
-
-    // connect
-    QTimer * timer = new QTimer();
+    // make/connect a timer to move() the enemy every so often
+    QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));
 
+    // start the timer
     timer->start(50);
 }
 
 void Enemy::move(){
-    // move enemy up
+    // move enemy down
     setPos(x(),y()+5);
-    if(pos().y() + rect().height() < 0){
+
+    // destroy enemy when it goes out of the screen
+    if (pos().y() > 600){
+//        decrease the health
+        game->health->decrease();
+
         scene()->removeItem(this);
         delete this;
-        qDebug() << "bullet deleted";
     }
 }
