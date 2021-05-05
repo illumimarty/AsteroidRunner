@@ -1,8 +1,12 @@
 #include "Player.h"
-#include <QGraphicsScene>
-#include <QKeyEvent>
 #include "Bullet.h"
 #include "Enemy.h"
+#include "Game.h"
+
+#include <QGraphicsScene>
+#include <QKeyEvent>
+
+extern Game * game; // there is an external global object called game
 
 Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent){
     //set the bullet sound
@@ -16,6 +20,7 @@ Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent){
 }
 
 void Player::keyPressEvent(QKeyEvent *event){
+
     // move the player left and right
     if (event->key() == Qt::Key_Left){
         if (pos().x() > 0)
@@ -45,7 +50,24 @@ void Player::keyPressEvent(QKeyEvent *event){
 }
 
 void Player::spawn(){
+    // get a list of all the items currently colliding with this player
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+
     // create an enemy
     Enemy * enemy = new Enemy();
     scene()->addItem(enemy);
+    for (int i = 0, n = colliding_items.size(); i < n; ++i){
+        if (typeid(*(colliding_items[i])) == typeid(Enemy)){
+            // decrease the score
+            game->health->decrease();
+
+            // remove them from the scene (still on the heap)
+            scene()->removeItem(colliding_items[i]);
+
+            // delete them from the heap to save memory
+            delete colliding_items[i];
+            // return (all code below refers to a non existint bullet)
+            return;
+        }
+    }
 }
