@@ -7,6 +7,7 @@
 #include <QFont>
 #include <QMediaPlayer>
 #include <QImage>
+#include <QDebug>
 
 
 Game::Game(QWidget *parent){
@@ -27,6 +28,8 @@ Game::Game(QWidget *parent){
 }
 
 void Game::start(){
+
+    qDebug() << "new";
     // create the scene
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,800,600); // make the scene 800x600 instead of infinity by infinity (default)
@@ -56,9 +59,10 @@ void Game::start(){
     scene->addItem(health);
 
     // spawn enemies
-    QTimer * timer = new QTimer();
+    timer = new QTimer();
     QObject::connect(timer,SIGNAL(timeout()),player,SLOT(spawn()));
     timer->start(2000);
+
 }
 
 void Game::drawPanel(int x, int y, int width, int height, QColor color, double opacity){
@@ -80,6 +84,9 @@ void Game::restartGame(){
 
 
 void Game::displayGameOverWindow(QString textToDisplay){
+
+    timer->stop();
+    QObject::disconnect(timer, SIGNAL(timeout()),player,SLOT(spawn()));
     // pop up semi transparent panel
     drawPanel(0,0,1024,768,Qt::black,0.65);
 

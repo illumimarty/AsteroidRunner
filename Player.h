@@ -11,6 +11,7 @@ class Player:public QObject, public QGraphicsPixmapItem{
 public:
     Player(QGraphicsItem * parent=0);
     void keyPressEvent(QKeyEvent * event);
+    const int playerSpeed = 35;
 public slots:
     void spawn();
 private:

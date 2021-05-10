@@ -9,7 +9,7 @@ extern Game * game; // there is an external global object called game
 Health::Health(QGraphicsItem *parent): QGraphicsTextItem(parent)
 {
     //initialize the score to zero
-    health = 3;
+    health = 1; // change back to 3 when done
 
     //draw the text
     setPlainText(QString("Health: ") + QString::number(health));
@@ -30,6 +30,7 @@ void Health::decrease()
     {
         message = "Game Over!";
         game->displayGameOverWindow(message);
+
     }
 }
 

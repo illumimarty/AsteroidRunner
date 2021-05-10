@@ -4,6 +4,8 @@
 #include <QGraphicsView>
 #include <QWidget>
 #include <QGraphicsScene>
+#include <QTimer>
+
 #include "Player.h"
 #include "Score.h"
 #include "Health.h"
@@ -22,6 +24,7 @@ public:
     Player * player;
     Score * score;
     Health * health;
+    QTimer * timer;
 
 
 public slots:

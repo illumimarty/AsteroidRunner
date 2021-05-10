@@ -24,11 +24,11 @@ void Player::keyPressEvent(QKeyEvent *event){
     // move the player left and right
     if (event->key() == Qt::Key_Left){
         if (pos().x() > 0)
-        setPos(x()-10,y());
+        setPos(x() - playerSpeed, y());
     }
     else if (event->key() == Qt::Key_Right){
         if (pos().x() + 100 < 800)
-        setPos(x()+10,y());
+        setPos(x() + playerSpeed, y());
     }
     // shoot with the spacebar
     else if (event->key() == Qt::Key_Space){
@@ -58,6 +58,7 @@ void Player::spawn(){
     scene()->addItem(enemy);
     for (int i = 0, n = colliding_items.size(); i < n; ++i){
         if (typeid(*(colliding_items[i])) == typeid(Enemy)){
+
             // decrease the score
             game->health->decrease();
 
