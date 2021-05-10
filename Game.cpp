@@ -65,17 +65,6 @@ void Game::start(){
 
 }
 
-void Game::drawPanel(int x, int y, int width, int height, QColor color, double opacity){
-    // draws a panel at the specified location with the specified properties
-    QGraphicsRectItem* panel = new QGraphicsRectItem(x,y,width,height);
-    QBrush brush;
-    brush.setStyle(Qt::SolidPattern);
-    brush.setColor(color);
-    panel->setBrush(brush);
-    panel->setOpacity(opacity);
-    scene->addItem(panel);
-}
-
 void Game::restartGame(){
     //clear all items
     scene->clear();
@@ -87,21 +76,19 @@ void Game::displayGameOverWindow(QString textToDisplay){
 
     timer->stop();
     QObject::disconnect(timer, SIGNAL(timeout()),player,SLOT(spawn()));
-    // pop up semi transparent panel
-    drawPanel(0,0,1024,768,Qt::black,0.65);
-
-    // draw panel
-    drawPanel(312,184,400,400,Qt::lightGray,0.75);
-
     // create playAgain button
     Button* playAgain = new Button(QString("Play Again"));
-    playAgain->setPos(410,300);
+    int bxPos = this->width()/2 - playAgain->boundingRect().width()/2;
+    int byPos = 275;
+    playAgain->setPos(bxPos,byPos);
     scene->addItem(playAgain);
     connect(playAgain,SIGNAL(clicked()),this,SLOT(restartGame()));
 
     // create quit button
-    Button* quit = new Button(QString("Quit"));
-    quit->setPos(410,375);
+    Button* quit = new Button(QString("Main Menu"));
+    int qxPos = this->width()/2 - quit->boundingRect().width()/2;
+    int qyPos = 350;
+    quit->setPos(qxPos,qyPos);
     scene->addItem(quit);
     connect(quit,SIGNAL(clicked()),this,SLOT(displayMainMenu()));
 
