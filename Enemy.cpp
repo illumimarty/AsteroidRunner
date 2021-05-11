@@ -27,20 +27,20 @@ Enemy::Enemy(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent){
 
 void Enemy::move(){
     // move enemy down with increasing difficulty as score goes up
-    if(game->score->getScore() <= 10){
+    if(game->score->getScore() < 10){
         setPos(x(),y()+5);
     }
-    if (game->score->getScore() >= 11){
-        setPos(x(),y()+10);
+    if (game->score->getScore() >= 10 && game->score->getScore() < 20){
+        setPos(x(),y()+6);
     }
-    if (game->score->getScore() >= 20){
-        setPos(x(),y()+15);
+    if (game->score->getScore() >= 20 && game->score->getScore() < 30){
+        setPos(x(),y()+7);
     }
-    if (game->score->getScore() >= 30){
-        setPos(x(),y()+17);
+    if (game->score->getScore() >= 30 && game->score->getScore() < 40){
+        setPos(x(),y()+8.5);
     }
     if (game->score->getScore() >= 40){
-        setPos(x(),y()+20);
+        setPos(x(),y()+10);
     }
 
     // destroy enemy when it goes out of the screen
