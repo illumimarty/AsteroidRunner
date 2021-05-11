@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/sounds">
+        <file>Galaxy_Blast.mp3</file>
+        <file>Ship_Shot.mp3</file>
+        <file>asteroid_explosion.mp3</file>
+        <file>spaceship_hit.mp3</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>asteroid.png</file>
+        <file>SpaceShip.png</file>
+        <file>ShipShot.png</file>
+        <file>Background.png</file>
+        <file>destroyed_asteroid.gif</file>
+        <file>title.png</file>
+    </qresource>
+</RCC>
