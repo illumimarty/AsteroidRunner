@@ -55,11 +55,12 @@ void Player::spawn(){
 
     // create an enemy
     Enemy * enemy = new Enemy();
+
     scene()->addItem(enemy);
     for (int i = 0, n = colliding_items.size(); i < n; ++i){
         if (typeid(*(colliding_items[i])) == typeid(Enemy)){
 
-            // decrease the score
+            // decrease the health
             game->health->decrease();
 
             // remove them from the scene (still on the heap)

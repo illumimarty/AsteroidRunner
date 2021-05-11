@@ -62,7 +62,6 @@ void Game::start(){
     timer = new QTimer();
     QObject::connect(timer,SIGNAL(timeout()),player,SLOT(spawn()));
     timer->start(1100);
-
 }
 
 void Game::restartGame(){

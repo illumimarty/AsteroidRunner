@@ -9,5 +9,6 @@
         <file>SpaceShip.png</file>
         <file>ShipShot.png</file>
         <file>Background.png</file>
+        <file>destroyed_asteroid.gif</file>
     </qresource>
 </RCC>

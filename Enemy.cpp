@@ -1,9 +1,11 @@
 #include "Enemy.h"
+#include "Game.h"
+
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QList>
 #include <stdlib.h> // rand() -> really large int
-#include "Game.h"
+
 
 extern Game * game;
 
@@ -15,7 +17,6 @@ Enemy::Enemy(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent){
     // draw the enemy
     setPixmap(QPixmap(":/images/asteroid.png"));
 
-
     // make/connect a timer to move() the enemy every so often
     QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));
@@ -25,8 +26,22 @@ Enemy::Enemy(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent){
 }
 
 void Enemy::move(){
-    // move enemy down
-    setPos(x(),y()+10);
+    // move enemy down with increasing difficulty as score goes up
+    if(game->score->getScore() <= 10){
+        setPos(x(),y()+5);
+    }
+    if (game->score->getScore() >= 11){
+        setPos(x(),y()+10);
+    }
+    if (game->score->getScore() >= 20){
+        setPos(x(),y()+15);
+    }
+    if (game->score->getScore() >= 30){
+        setPos(x(),y()+17);
+    }
+    if (game->score->getScore() >= 40){
+        setPos(x(),y()+20);
+    }
 
     // destroy enemy when it goes out of the screen
     if (pos().y() > 600){

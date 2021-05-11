@@ -5,15 +5,19 @@
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QList>
+#include <QMovie>
+#include <QLabel>
 
 extern Game * game; // there is an external global object called game
 
 Bullet::Bullet(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent){
-    // drew the bullet
+    // draw the bullet
     setPixmap(QPixmap(":/images/ShipShot.png"));
+    //add the explosion sound
     explosionSound = new QMediaPlayer();
     explosionSound->setMedia(QUrl("qrc:/sounds/asteroid_explosion.mp3"));
     explosionSound->setVolume(10);
+
     // make/connect a timer to move() the bullet every so often
     QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));
