@@ -31,7 +31,7 @@ void Enemy::move(){
     // destroy enemy when it goes out of the screen
     if (pos().y() > 600){
 //        decrease the health
-//        game->health->decrease();
+        game->health->decrease();
 
         scene()->removeItem(this);
         delete this;
