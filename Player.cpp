@@ -17,7 +17,7 @@ Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent){
     //add the explosion sound
     explosionSound = new QMediaPlayer();
     explosionSound->setMedia(QUrl("qrc:/sounds/spaceship_hit.mp3"));
-    explosionSound->setVolume(10);
+    explosionSound->setVolume(40);
 
     //draw player
     setPixmap(QPixmap(":/images/SpaceShip.png"));
@@ -68,6 +68,9 @@ void Player::spawn(){
             // decrease the health
             game->health->decrease();
 
+            // remove them from the scene (still on the heap)
+            scene()->removeItem(colliding_items[i]);
+
             //play explosion sound
             if (explosionSound->state() == QMediaPlayer::PlayingState){
                 explosionSound->setPosition(0);
@@ -75,9 +78,6 @@ void Player::spawn(){
             else if (explosionSound->state() == QMediaPlayer::StoppedState){
                 explosionSound->play();
             }
-
-            // remove them from the scene (still on the heap)
-            scene()->removeItem(colliding_items[i]);
 
             // delete them from the heap to save memory
             delete colliding_items[i];

@@ -49,7 +49,7 @@ void Game::start(){
 
     // create the player
     player = new Player();
-    player->setPos(400,500); // TODO generalize to always be in the middle bottom of screen
+    player->setPos(350,500); // TODO generalize to always be in the middle bottom of screen
     // make the player focusable and set it to be the current focus
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
@@ -58,9 +58,10 @@ void Game::start(){
 
     // create the score/health
     score = new Score();
+    score->setPos(score->x()+400, score->y()+569);
     scene->addItem(score);
     health = new Health();
-    health->setPos(health->x(),health->y()+25);
+    health->setPos(health->x()+300,health->y()+570);
     scene->addItem(health);
 
     // spawn enemies
