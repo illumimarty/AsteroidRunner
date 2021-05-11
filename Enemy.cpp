@@ -39,8 +39,14 @@ void Enemy::move(){
     if (game->score->getScore() >= 30 && game->score->getScore() < 40){
         setPos(x(),y()+8.5);
     }
-    if (game->score->getScore() >= 40){
-        setPos(x(),y()+10);
+    if (game->score->getScore() >= 40 && game->score->getScore() < 50){
+        setPos(x(),y()+12);
+    }
+    if (game->score->getScore() >= 50 && game->score->getScore() < 60){
+        setPos(x(),y()+15);
+    }
+    if (game->score->getScore() >= 60){
+        setPos(x(),y()+18);
     }
 
     // destroy enemy when it goes out of the screen
