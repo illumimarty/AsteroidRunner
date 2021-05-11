@@ -5,10 +5,12 @@
 #include <QWidget>
 #include <QGraphicsScene>
 #include <QTimer>
+#include <QGraphicsPixmapItem>
 
 #include "Player.h"
 #include "Score.h"
 #include "Health.h"
+#include "Title.h"
 
 class Game: public QGraphicsView{
     Q_OBJECT
@@ -25,6 +27,7 @@ public:
     Score * score;
     Health * health;
     QTimer * timer;
+    Title * title;
 
 
 public slots:

@@ -5,12 +5,19 @@
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QList>
+#include <QMovie>
+#include <QLabel>
 
 extern Game * game; // there is an external global object called game
 
 Bullet::Bullet(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent){
-    // drew the bullet
+    // draw the bullet
     setPixmap(QPixmap(":/images/ShipShot.png"));
+
+    //add the explosion sound
+    explosionSound = new QMediaPlayer();
+    explosionSound->setMedia(QUrl("qrc:/sounds/asteroid_explosion.mp3"));
+    explosionSound->setVolume(10);
 
     // make/connect a timer to move() the bullet every so often
     QTimer * timer = new QTimer(this);
@@ -29,7 +36,13 @@ void Bullet::move(){
         if (typeid(*(colliding_items[i])) == typeid(Enemy)){
             // increase the score
             game->score->increase();
-
+            //play explosion sound
+            if (explosionSound->state() == QMediaPlayer::PlayingState){
+                explosionSound->setPosition(0);
+            }//if its not playing play it
+            else if (explosionSound->state() == QMediaPlayer::StoppedState){
+                explosionSound->play();
+            }
             // remove them from the scene (still on the heap)
             scene()->removeItem(colliding_items[i]);
             scene()->removeItem(this);

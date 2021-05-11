@@ -8,26 +8,31 @@
 #include <QMediaPlayer>
 #include <QImage>
 #include <QDebug>
+#include <QMediaPlaylist>
 
 
 Game::Game(QWidget *parent){
     // create the scene
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,800,600); // make the scene 800x600 instead of infinity by infinity (default)
-    setBackgroundBrush(QBrush(QImage(":/images/Background.png")));
+    setBackgroundBrush(QBrush(QImage(":/images/Background2.png")));
     setScene(scene);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(800,600);
 
     // play background music
+    QMediaPlaylist *playlist = new QMediaPlaylist();
+    playlist->addMedia(QUrl("qrc:/sounds/Galaxy_Blast.mp3"));
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
     QMediaPlayer * music = new QMediaPlayer();
-    music->setMedia(QUrl("qrc:/sounds/Galaxy_Blast.mp3"));
+    music->setPlaylist(playlist);
     music->setVolume(10);
     music->play();
 }
 
 void Game::start(){
+
 
     qDebug() << "new";
     // create the scene
@@ -44,7 +49,7 @@ void Game::start(){
 
     // create the player
     player = new Player();
-    player->setPos(400,500); // TODO generalize to always be in the middle bottom of screen
+    player->setPos(350,500); // TODO generalize to always be in the middle bottom of screen
     // make the player focusable and set it to be the current focus
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
@@ -53,16 +58,16 @@ void Game::start(){
 
     // create the score/health
     score = new Score();
+    score->setPos(score->x()+400, score->y()+569);
     scene->addItem(score);
     health = new Health();
-    health->setPos(health->x(),health->y()+25);
+    health->setPos(health->x()+300,health->y()+570);
     scene->addItem(health);
 
     // spawn enemies
     timer = new QTimer();
     QObject::connect(timer,SIGNAL(timeout()),player,SLOT(spawn()));
     timer->start(1100);
-
 }
 
 void Game::restartGame(){
@@ -108,6 +113,13 @@ void Game::displayMainMenu(){
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(800,600);
+
+    //create the title
+    title = new Title();
+    int titleXPos = this->width()/2 - title->boundingRect().width()/2;
+    int titleYPos = 100;
+    title->setPos(titleXPos, titleYPos);
+    scene->addItem(title);
 
     // create the play button
     Button* playButton = new Button(QString("Play"));
