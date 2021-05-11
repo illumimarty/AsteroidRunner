@@ -17,6 +17,7 @@ SOURCES += \
     Health.cpp \
     Player.cpp \
     Score.cpp \
+    Title.cpp \
     main.cpp
 
 HEADERS += \
@@ -26,7 +27,8 @@ HEADERS += \
     Game.h \
     Health.h \
     Player.h \
-    Score.h
+    Score.h \
+    Title.h
 
 FORMS +=
 

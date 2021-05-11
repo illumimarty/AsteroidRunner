@@ -31,7 +31,7 @@ void Enemy::move(){
         setPos(x(),y()+5);
     }
     if (game->score->getScore() >= 11){
-        setPos(x(),y()+10);
+        setPos(x(),y()+8);
     }
     if (game->score->getScore() >= 20){
         setPos(x(),y()+15);
