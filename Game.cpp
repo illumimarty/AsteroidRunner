@@ -8,32 +8,37 @@
 #include <QMediaPlayer>
 #include <QImage>
 #include <QDebug>
+#include <QMediaPlaylist>
 
 
 Game::Game(QWidget *parent){
     // create the scene
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,800,600); // make the scene 800x600 instead of infinity by infinity (default)
-    setBackgroundBrush(QBrush(QImage(":/images/Background.png")));
+    setBackgroundBrush(QBrush(QImage(":/images/Background2.png")));
     setScene(scene);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(800,600);
 
     // play background music
+    QMediaPlaylist *playlist = new QMediaPlaylist();
+    playlist->addMedia(QUrl("qrc:/sounds/Galaxy_Blast.mp3"));
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
     QMediaPlayer * music = new QMediaPlayer();
-    music->setMedia(QUrl("qrc:/sounds/Galaxy_Blast.mp3"));
+    music->setPlaylist(playlist);
     music->setVolume(10);
     music->play();
 }
 
 void Game::start(){
 
+
     qDebug() << "new";
     // create the scene
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,800,600); // make the scene 800x600 instead of infinity by infinity (default)
-    setBackgroundBrush(QBrush(QImage(":/images/Background.png")));
+    setBackgroundBrush(QBrush(QImage(":/images/Background2.png")));
 
     // make the newly created scene the scene to visualize (since Game is a QGraphicsView Widget,
     // it can be used to visualize scenes)
@@ -107,6 +112,13 @@ void Game::displayMainMenu(){
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(800,600);
+
+    //create the title
+    title = new Title();
+    int titleXPos = this->width()/2 - title->boundingRect().width()/2;
+    int titleYPos = 100;
+    title->setPos(titleXPos, titleYPos);
+    scene->addItem(title);
 
     // create the play button
     Button* playButton = new Button(QString("Play"));

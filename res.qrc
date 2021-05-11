@@ -10,5 +10,7 @@
         <file>ShipShot.png</file>
         <file>Background.png</file>
         <file>destroyed_asteroid.gif</file>
+        <file>Background2.png</file>
+        <file>title.png</file>
     </qresource>
 </RCC>
