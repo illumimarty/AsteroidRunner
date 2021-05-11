@@ -17,7 +17,7 @@ Bullet::Bullet(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent){
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));
 
     // start the timer
-    timer->start(50);
+    timer->start(30);
 }
 
 void Bullet::move(){
@@ -44,9 +44,9 @@ void Bullet::move(){
     }
 
     // if there was no collision with an Enemy, move the bullet forward
-    setPos(x(),y()-10);
+    setPos(x(),y()-20);
     // if the bullet is off the screen, destroy it
-    if (pos().y() < 0){
+    if (pos().y() < -30){
         scene()->removeItem(this);
         delete this;
     }

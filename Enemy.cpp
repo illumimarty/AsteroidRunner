@@ -10,7 +10,7 @@ extern Game * game;
 Enemy::Enemy(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent){
     //set random x position
     int random_number = rand() % 700;
-    setPos(random_number,0);
+    setPos(random_number,-75);
 
     // draw the enemy
     setPixmap(QPixmap(":/images/asteroid.png"));
@@ -26,7 +26,7 @@ Enemy::Enemy(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent){
 
 void Enemy::move(){
     // move enemy down
-    setPos(x(),y()+5);
+    setPos(x(),y()+10);
 
     // destroy enemy when it goes out of the screen
     if (pos().y() > 600){
